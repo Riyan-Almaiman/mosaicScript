@@ -1,5 +1,6 @@
 import os
 import time
+import shutil
 import arcpy
 
 
@@ -44,7 +45,10 @@ def mosiac_to_raster(folder_selected, destination_selection, number_of_bands, pi
 
         path = folder.rstrip('/')  
         last_part = os.path.basename(path)
-        print(last_part)
+        done_file_exists = os.path.exists(os.path.join(destination_selection, last_part, 'done.txt'))
+        if done_file_exists:
+            print(f"'done.txt' file found for folder {last_part}. Skipping processing.")
+            continue
         print(f"Starting processing for folder: {last_part}")
 
 
@@ -63,11 +67,19 @@ def mosiac_to_raster(folder_selected, destination_selection, number_of_bands, pi
                     
                     output_folder = os.path.join(destination_selection, f'{last_part}','mosaic', f'{dem}')
 
-                    if not os.path.exists(output_folder):
+                    if os.path.exists(output_folder):
+                        for filename in os.listdir(output_folder):
+                            file_path = os.path.join(output_folder, filename)
+                            try:
+                                if os.path.isfile(file_path) or os.path.islink(file_path):
+                                    os.unlink(file_path)  # Remove files and symbolic links
+                                elif os.path.isdir(file_path):
+                                    shutil.rmtree(file_path)  # Remove directories
+                            except Exception as e:
+                                print(f'Failed to delete {file_path}. Reason: {e}')
+                    else:
                         os.makedirs(output_folder)
                         
-
-
 
                     arcpy.MosaicToNewRaster_management(
                         input_rasters=tif_files_str,
@@ -90,7 +102,8 @@ def mosiac_to_raster(folder_selected, destination_selection, number_of_bands, pi
 
         
         print(f"Finished processing for folder: {folder}")
-
+        done_file_path = os.path.join(destination_selection, last_part, 'done.txt')
+        open(done_file_path, 'a').close() 
         
 
     print("All desired folders processed!")

@@ -45,6 +45,7 @@ def run_mosaic():
     output_folder = output_folder_entry.get()
     number_of_bands = number_of_bands_dropdown.get()
     pixel_types_value= pixel_type_dropdown.get()
+    root.destroy()
     script.mosiac_to_raster(input_folder,output_folder,number_of_bands,pixel_types_value)
 
 
