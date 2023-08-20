@@ -56,13 +56,13 @@ root = tk.Tk()
 root.title("Mosaic to New Raster")
 
 # Input rasters directory
-ttk.Label(root, text="Input Rasters Directory:").grid(row=0, column=0, sticky='w', padx=10, pady=5)
+ttk.Label(root, text="Select the Directory with the list of directories to process:").grid(row=0, column=0, sticky='w', padx=10, pady=5)
 input_folder_entry = ttk.Entry(root, width=50)
 input_folder_entry.grid(row=0, column=1, padx=10, pady=5)
 ttk.Button(root, text="Browse", command=select_input_directory).grid(row=0, column=2, padx=10, pady=5)
 
 # Output location directory
-ttk.Label(root, text="Output Folder:").grid(row=1, column=0, sticky='w', padx=10, pady=5)
+ttk.Label(root, text="Output Folder (where the mosaics will be):").grid(row=1, column=0, sticky='w', padx=10, pady=5)
 output_folder_entry = ttk.Entry(root, width=50)
 output_folder_entry.grid(row=1, column=1, padx=10, pady=5)
 ttk.Button(root, text="Browse", command=select_output_directory).grid(row=1, column=2, padx=10, pady=5)
