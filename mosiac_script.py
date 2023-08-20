@@ -33,7 +33,7 @@ def mosiac_to_raster(folder_selected, destination_selection, number_of_bands, pi
 
     numberofFolders = len(all_subfolders)
 
-    print(f"Number of folders available to process (This checks for folders that are done and excludes them) = {numberofFolders}")
+    print(f"Number of folders available to process = {numberofFolders}")
 
 
 
@@ -47,8 +47,12 @@ def mosiac_to_raster(folder_selected, destination_selection, number_of_bands, pi
         last_part = os.path.basename(path)
         done_file_exists = os.path.exists(os.path.join(destination_selection, last_part, 'done.txt'))
         if done_file_exists:
+            print('')
+            print('---------------------------------------------------------------------')
             print(f"'done.txt' file found for folder {last_part}. Skipping processing.")
             continue
+        print('')
+        print('---------------------------------------------------------------------')
         print(f"Starting processing for folder: {last_part}")
 
 
