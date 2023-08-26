@@ -5,7 +5,7 @@ import arcpy
 
 
 
-def mosiac_to_raster(folder_selected, destination_selection, number_of_bands, pixel_type_value):
+def mosaic_to_raster(folder_selected, destination_selection, number_of_bands, pixel_type_value):
   
 
     if not folder_selected:
